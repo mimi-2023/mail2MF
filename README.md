@@ -1,3 +1,5 @@
+# ※[こちらのコード](https://github.com/takanory/anapay2moneyforward)をコピー・変更しました※
+
 # anapay2moneyforward
 
 * ANA Payのメールから支払い情報を取り出して、マネーフォワードに登録するスクリプト。
