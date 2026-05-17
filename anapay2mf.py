@@ -27,8 +27,8 @@ SCOPES = [
 ]
 
 # Google Spreadsheet ID and Sheet name
-SHEET_ID = "143Ewai1jFlt4d4msZI8fXersf2IErrzTQfFjjrwzOwM"
-SHEET_NAME = "ANAPay"
+# SHEET_ID = "143Ewai1jFlt4d4msZI8fXersf2IErrzTQfFjjrwzOwM"
+# SHEET_NAME = "ANAPay"
 
 MF_URL = "https://ssnb.x.moneyforward.com/cf"
 
@@ -150,12 +150,13 @@ def gmail2spredsheet(worksheet):
 def login_mf():
     """login moneyforward sbi"""
 
-    email = os.getenv("EMAIL")
-    password = os.getenv("PASSWORD")
+    email = os.getenv("MF_EMAIL")
+    password = os.getenv("MF_PASSWORD")
 
     # https://selenium-python-helium.readthedocs.io/en/latest/api.html
     logging.info("Login to moneyfoward")
-    helium.start_firefox(MF_URL)
+    helium.start_chrome(MF_URL)
+    # helium.start_firefox(MF_URL)
     helium.wait_until(helium.Button("ログイン").exists)
     helium.write(email, into="メールアドレス")
     helium.write(password, into="パスワード")
@@ -241,6 +242,7 @@ def main():
     gc = gspread.oauth(
         credentials_filename="credentials.json", authorized_user_filename="token.json"
     )
+    SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
     sheet = gc.open_by_key(SHEET_ID)
     anapay_sheet = sheet.worksheet("ANAPay")
     store_sheet = sheet.worksheet("ANAPayStore")
